@@ -10,7 +10,7 @@ public class Quote {
 
     Integer id;
 
-    String type;
+    String quoteType;
 
     String author;
 
@@ -24,5 +24,9 @@ public class Quote {
 
     String detailLink;
 
-    Integer poetryId;
+    String poetryId;
+
+    String poetryHref;
+
+    String quoteHref;
 }

@@ -12,8 +12,8 @@ public class SpiderGo {
 //
 //        System.out.println(html);
 
-        AbstractHTMLParser<Void> abstractHTMLParser = new AbstractHTMLParser<>();
-        abstractHTMLParser.parseFormHttp("https://www.gushiwen.cn/mingjus/default.aspx?page={1}&tstr=%e6%98%a5%e5%a4%a9&astr=&cstr=&xstr=", 1);
+//        AbstractHTMLParser<Void> abstractHTMLParser = new AbstractHTMLParser<>();
+//        abstractHTMLParser.parseFormHttp("https://www.gushiwen.cn/mingjus/default.aspx?page={1}&tstr=%e6%98%a5%e5%a4%a9&astr=&cstr=&xstr=", 1);
 
     }
 

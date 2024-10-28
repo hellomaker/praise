@@ -1,5 +1,7 @@
 package io.github.hellomaker.praise.spider;
 
+import io.github.hellomaker.praise.spider.exception.NotFoundException;
+import io.github.hellomaker.praise.spider.exception.OtherNotResourceException;
 import io.github.hellomaker.praise.spider.regex.RegexUtils;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
@@ -22,7 +24,7 @@ public class DefaultSpider implements Spider{
     CloseableHttpClient httpClient = HttpClients.createDefault();
 
     @Override
-    public String crawling(String url, Object... params) {
+    public String crawling(String url, Object... params) throws OtherNotResourceException, NotFoundException {
         // 创建 httpGet 对象，设置访问 URL
         HttpGet httpGet = new HttpGet(RegexUtils.parse(url, params));
         CloseableHttpResponse response = null;
@@ -36,14 +38,15 @@ public class DefaultSpider implements Spider{
                 // 打印响应内容
 //                System.out.println(html);
                 return EntityUtils.toString(entity, Charset.forName("utf-8"));
+            } else if (response.getCode() == 404){
+                throw new NotFoundException();
+            } else {
+                throw new OtherNotResourceException(response.getReasonPhrase());
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (NotFoundException | OtherNotResourceException e) {
+            throw e;
+        } catch (Exception e){
+            throw new OtherNotResourceException(e.getMessage());
         } finally {
             // 关闭资源
             try {
@@ -55,7 +58,6 @@ public class DefaultSpider implements Spider{
                 e.printStackTrace();
             }
         }
-        return null;
     }
 
     @Override

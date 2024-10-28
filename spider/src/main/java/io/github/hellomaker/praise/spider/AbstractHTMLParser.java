@@ -1,17 +1,19 @@
 package io.github.hellomaker.praise.spider;
 
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
-public class AbstractHTMLParser<T> extends AbstractParser<T>{
+public abstract class AbstractHTMLParser<T> extends AbstractParser<T>{
 
+    public abstract T parse(Document document);
 
     @Override
     public T parse(String html) {
         Document document = Jsoup.parse(html);
-        Elements items = document.select(".main3 .left .sons .cont");
-
-        System.out.println(items);
-        return null;
+        return parse(document);
     }
 
 

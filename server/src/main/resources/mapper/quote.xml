@@ -5,16 +5,29 @@
 <mapper namespace="io.github.hellomaker.praise.mapper.QuoteDAO">
 
     <insert id="saveQuoteList">
-        insert into quote (`type`, author, dynasty, form, verse, `from`, detail_link, poetry_id)
+        insert into quote (`type`, author, dynasty, form, verse, `from`, detail_link, poetry_id, poetry_href, quote_href)
         values
-        <foreach collection="list" open="(" close=")" separator="," item="item">
-            item.type,
-            item.author,
-            item.dynasty,
-            item.form,
-            item.detailLink,
-            item.poetry_id
+        <foreach collection="list" separator="," item="item">
+            (
+            #{item.quoteType},
+            #{item.author},
+            #{item.dynasty},
+            #{item.form},
+            #{item.verse},
+            #{item.from},
+            #{item.detailLink},
+            #{item.poetryId},
+            #{item.poetryHref},
+            #{item.quoteHref}
+            )
         </foreach>
     </insert>
+
+    <select id="getCountOfQuote" resultType="Long">
+        select count(*) from quote where verse in
+        <foreach collection="list" separator="," item="item" open="(" close=")">
+            #{item.verse}
+        </foreach>
+    </select>
 
 </mapper>

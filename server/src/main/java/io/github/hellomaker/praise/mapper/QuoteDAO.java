@@ -14,5 +14,5 @@ public interface QuoteDAO {
 
     int saveQuoteList(List<Quote> quotes);
 
-
+    long getCountOfQuote(List<Quote> quotes);
 }
