@@ -24,7 +24,8 @@ public class DefaultSpider implements Spider{
     CloseableHttpClient httpClient = HttpClients.createDefault();
 
     @Override
-    public String crawling(String url, Object... params) throws OtherNotResourceException, NotFoundException {
+    public SpiderEntity crawling(String url, Object... params) throws OtherNotResourceException, NotFoundException {
+        String realUrl = RegexUtils.parse(url, params);
         // 创建 httpGet 对象，设置访问 URL
         HttpGet httpGet = new HttpGet(RegexUtils.parse(url, params));
         CloseableHttpResponse response = null;
@@ -37,7 +38,12 @@ public class DefaultSpider implements Spider{
                 HttpEntity entity = response.getEntity();
                 // 打印响应内容
 //                System.out.println(html);
-                return EntityUtils.toString(entity, Charset.forName("utf-8"));
+                String html = EntityUtils.toString(entity, Charset.forName("utf-8"));
+
+                SpiderEntity spiderEntity = new SpiderEntity();
+                spiderEntity.setHtml(html);
+                spiderEntity.setUrl(realUrl);
+                return spiderEntity;
             } else if (response.getCode() == 404){
                 throw new NotFoundException();
             } else {

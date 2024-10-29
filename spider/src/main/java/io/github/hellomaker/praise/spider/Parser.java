@@ -5,6 +5,6 @@ package io.github.hellomaker.praise.spider;
  */
 public interface Parser<T> {
 
-    T parse(String html);
+    T parse(String html, String url);
 
 }

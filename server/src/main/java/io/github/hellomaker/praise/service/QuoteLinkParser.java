@@ -15,7 +15,7 @@ import java.util.List;
 public class QuoteLinkParser extends AbstractHTMLParser<List<QuoteLinkDTO>> {
 
     @Override
-    public List<QuoteLinkDTO> parse(Document document) {
+    public List<QuoteLinkDTO> parse(Document document, String url) {
         List<QuoteLinkDTO> quoteLinkDTOS = new ArrayList<>();
 
         Elements items = document.select(".main3 .left .titletype .sright a");

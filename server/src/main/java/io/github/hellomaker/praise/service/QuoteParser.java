@@ -16,7 +16,7 @@ import java.util.List;
 public class QuoteParser extends AbstractHTMLParser<List<Quote>> {
 
     @Override
-    public List<Quote> parse(Document document) {
+    public List<Quote> parse(Document document, String url) {
         Elements items = document.select(".main3 .left .sons .cont");
         Elements typeElement = document.select(".main3 .left .titletype .sright span");
         int appendType = 4;
@@ -28,16 +28,25 @@ public class QuoteParser extends AbstractHTMLParser<List<Quote>> {
             if (parent != null && parent.parent() != null) {
                 Element parent2 = parent.parent();
                 Attribute id = parent2.attribute("id");
-                if (id.hasDeclaredValue()) {
-                    String idValue = id.getValue();
-                    if ("type1".equals(idValue)) {
-                        appendType = 1;
-                    } else if ("type2".equals(idValue)) {
-                        appendType = 2;
-                    } else if ("type3".equals(idValue)) {
-                        appendType = 3;
+                try {
+                    if (id != null && id.hasDeclaredValue()) {
+                        String idValue = id.getValue();
+                        if ("type1".equals(idValue)) {
+                            appendType = 1;
+                        } else if ("type2".equals(idValue)) {
+                            appendType = 2;
+                        } else if ("type3".equals(idValue)) {
+                            appendType = 3;
+                        }
+                    } else {
+                        System.err.println("not id!!");
+                        System.out.println(parent);
+                        System.out.println(parent2);
                     }
+                } catch (Exception e) {
+                    System.out.println(e);
                 }
+
             }
         }
 
