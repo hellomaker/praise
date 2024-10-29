@@ -26,7 +26,7 @@ public class AppListener implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
 
         QuoteLinkParser quoteLinkParser = new QuoteLinkParser();
-        final String contextPath = "https://www.gushiwen.cn/";
+        final String contextPath = "https://www.gushiwen.cn";
         List<QuoteLinkDTO> quoteLinkDTOS = quoteLinkParser.parseFormHttp(contextPath + "/mingjus/default.aspx");
 
         QuoteParser quoteParser = new QuoteParser();

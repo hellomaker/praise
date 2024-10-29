@@ -28,13 +28,15 @@ public class QuoteParser extends AbstractHTMLParser<List<Quote>> {
             if (parent != null && parent.parent() != null) {
                 Element parent2 = parent.parent();
                 Attribute id = parent2.attribute("id");
-                String idValue = id.html();
-                if ("type1".equals(idValue)) {
-                    appendType = 1;
-                } else if ("type2".equals(idValue)) {
-                    appendType = 2;
-                } else if ("type3".equals(idValue)) {
-                    appendType = 3;
+                if (id.hasDeclaredValue()) {
+                    String idValue = id.getValue();
+                    if ("type1".equals(idValue)) {
+                        appendType = 1;
+                    } else if ("type2".equals(idValue)) {
+                        appendType = 2;
+                    } else if ("type3".equals(idValue)) {
+                        appendType = 3;
+                    }
                 }
             }
         }
