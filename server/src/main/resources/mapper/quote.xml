@@ -4,6 +4,20 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="io.github.hellomaker.praise.mapper.QuoteDAO">
 
+    <resultMap id="quoteMap" type="io.github.hellomaker.praise.model.po.Quote">
+        <result column="type" property="quoteType"/>
+        <result column="author" property="author"/>
+        <result column="dynasty" property="dynasty"/>
+        <result column="form" property="form"/>
+        <result column="verse" property="verse"/>
+        <result column="from" property="from"/>
+        <result column="detail_link" property="detailLink"/>
+        <result column="poetry_id" property="poetryId"/>
+        <result column="poetry_href" property="poetryHref"/>
+        <result column="quote_href" property="quoteHref"/>
+    </resultMap>
+
+
     <insert id="saveQuoteList">
         insert into quote (`type`, author, dynasty, form, verse, `from`, detail_link, poetry_id, poetry_href, quote_href)
         values
@@ -28,6 +42,10 @@
         <foreach collection="list" separator="," item="item" open="(" close=")">
             #{item.verse}
         </foreach>
+    </select>
+
+    <select id="getRandomQuote" resultMap="quoteMap">
+        SELECT * FROM quote b JOIN (SELECT CEIL(MAX(id)*RAND()) AS id FROM quote) AS m ON b.id >= m.id LIMIT 1;
     </select>
 
 </mapper>

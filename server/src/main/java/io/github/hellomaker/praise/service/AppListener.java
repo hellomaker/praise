@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * @author hellomaker
  */
-@Component
+//@Component
 public class AppListener implements ApplicationRunner {
 
     @Resource

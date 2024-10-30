@@ -1,12 +1,12 @@
-package io.github.hellomaker.praise.model.po;
+package io.github.hellomaker.praise.model.vo;
 
 import lombok.Data;
 
 /**
- * @author hellomaker
+ * @author xianzhikun
  */
 @Data
-public class Quote {
+public class QuoteVO {
 
     private Integer id;
 
@@ -29,4 +29,7 @@ public class Quote {
     private String poetryHref;
 
     private String quoteHref;
+
+    private String quote;
+
 }
