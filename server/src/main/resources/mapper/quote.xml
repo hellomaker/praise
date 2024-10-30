@@ -45,7 +45,7 @@
     </select>
 
     <select id="getRandomQuote" resultMap="quoteMap">
-        SELECT * FROM quote b JOIN (SELECT CEIL(MAX(id)*RAND()) AS id FROM quote) AS m ON b.id >= m.id LIMIT 1;
+        SELECT * FROM quote b JOIN (SELECT CEIL((MAX(id)-MIN(id))*RAND() + MIN(id) ) AS id FROM quote) AS m ON b.id >= m.id LIMIT 1
     </select>
 
 </mapper>
